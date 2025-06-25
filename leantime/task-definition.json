@@ -96,7 +96,17 @@
           "valueFrom": "arn:aws:ssm:us-east-1:748381872886:parameter/lks/db/username"
         }
       ],
-      "environment": [],
+      "environment": [
+        { "name": "PUID", "value": "1000" },
+        { "name": "PGID", "value": "1000" },
+        { "name": "LEAN_PORT", "value": "8080" },
+        { "name": "LEAN_APP_URL", "value": "http://localhost:8080" },
+        { "name": "LEAN_DEBUG", "value": "0" },
+        { "name": "LEAN_SITENAME", "value": "LKS Leantime" },
+        { "name": "LEAN_LANGUAGE", "value": "en-US" },
+        { "name": "LEAN_DEFAULT_TIMEZONE", "value": "Asia/Jakarta" }
+
+      ],
       "mountPoints": [
         {
           "sourceVolume": "public-files",

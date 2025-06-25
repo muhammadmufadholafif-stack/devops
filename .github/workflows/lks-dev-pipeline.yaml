@@ -13,6 +13,7 @@ env:
   ECS_CLUSTER: "lks-oss-cluster-dev"
   LEANTIME_TASK_DEFINITION: leantime/task-definition.json
   ECS_LEANTIME_SERVICE: "leantime-service"
+  
   GATUS_CONFIG_FILE: "gatus/config/config.yaml"
   ECS_GATUS_SERVICE: "gatus-service"
   GATUS_TASK_DEFINITION: "gatus/task-definition.json"
