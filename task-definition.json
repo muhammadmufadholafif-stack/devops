@@ -1,0 +1,55 @@
+{
+  "family": "leantime-task",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "leantime",
+      "image": "leantime/leantime:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 8080
+        }
+      ],
+      "environment": [],
+      "secrets": [
+        {
+          "name": "DB_DATABASE",
+          "valueFrom": "arn:aws:ssm:us-east-1:748381872886:parameter/lks/db/name"
+        },
+        {
+          "name": "DB_HOST",
+          "valueFrom": "arn:aws:ssm:us-east-1:748381872886:parameter/lks/db/host"
+        },
+        {
+          "name": "DB_PASSWORD",
+          "valueFrom": "arn:aws:ssm:us-east-1:748381872886:parameter/lks/db/password"
+        },
+        {
+          "name": "DB_PORT",
+          "valueFrom": "arn:aws:ssm:us-east-1:748381872886:parameter/lks/db/port"
+        },
+        {
+          "name": "DB_USER",
+          "valueFrom": "arn:aws:ssm:us-east-1:748381872886:parameter/lks/db/username"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/leantime",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "leantime"
+        }
+      }
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "taskRoleArn": "arn:aws:iam::748381872886:role/LabRole",
+  "executionRoleArn": "arn:aws:iam::748381872886:role/LabRole"
+}
