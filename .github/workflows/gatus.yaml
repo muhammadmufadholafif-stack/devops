@@ -5,7 +5,7 @@ on:
     branches:
       - dev
     paths:
-      - .github/workflows/lks-dev-pipeline.yaml
+      - .github/workflows/gatus.yaml
       # - docker-stack.yml
       - gatus/**
       # - leantime/**
