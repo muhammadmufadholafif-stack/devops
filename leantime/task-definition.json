@@ -68,11 +68,11 @@
           "valueFrom": "arn:aws:ssm:us-east-1:748381872886:parameter/lks/db/name"
         },
         {
-          "name": "LEAN_DB_HOST ",
+          "name": "LEAN_DB_HOST",
           "valueFrom": "arn:aws:ssm:us-east-1:748381872886:parameter/lks/db/host"
         },
         {
-          "name": "LEAN_DB_PASSWORD ",
+          "name": "LEAN_DB_PASSWORD",
           "valueFrom": "arn:aws:ssm:us-east-1:748381872886:parameter/lks/db/password"
         },
         {
