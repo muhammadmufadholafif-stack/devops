@@ -2,7 +2,7 @@ name: File yml in Github Actions
 on:
   push:
     branches:
-      - dev
+      - main
     paths:
       - .github/workflows/gatus.yaml
       # - docker-stack.yml
