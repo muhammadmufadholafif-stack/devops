@@ -1,0 +1,124 @@
+name: Job - Deploy Leantime and Gatus to AWS ECS
+# This workflow deploys Leantime and Gatus applications to AWS ECS when changes are pushed
+
+on:
+  push:
+    branches:
+      - prod
+    paths:
+      - .github/workflows/lks-deployment-pipeline.yml
+      - gatus/**
+      - leantime/**
+  workflow_dispatch:
+
+env:
+  AWS_REGION: ${{ AWS_REGION }}
+  ECR_REPOSITORY: ${{ ECR_REPOSITORY }}
+  ECS_CLUSTER: ${{ ECS_CLUSTER }}
+  TOKEN: ${{ secrets.TOKEN }}
+
+  # Leantime configuration
+  ECS_LEANTIME_SERVICE: ${{ ECS_LEANTIME_SERVICE }}
+  LEANTIME_TASK_DEFINITION: "leantime/task-definition.json"
+  LEANTIME_URL: "http://${{ secrets.ALB_ENDPOINT }}"
+
+  # Gatus configuration
+  GATUS_CONFIG_FILE: "gatus/config/config.yaml"
+  ECS_GATUS_SERVICE:  ${{ ECS_GATUS_SERVICE }}
+  GATUS_TASK_DEFINITION: "gatus/task-definition.json"
+  GATUS_URL: "http://${{ secrets.ALB_ENDPOINT }}:8080"
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          service: ${{ env.ECS_LEANTIME_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
+          run-task-tags: '[{"key": "name", "value": "lks-container-leantime"} ]'
+
+# -----
+  deploy-gatus:
+    name: Deploy Gatus App
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Update Configuration
+        env:
+          TOKEN: ${{ env.TOKEN }}
+          GATUS_URL: ${{ env.GATUS_URL }}
+          LEANTIME_URL: ${{ env.LEANTIME_URL }}
+        run: |
+          sed -i "s|<github-token>|$TOKEN|g" gatus/config/config.yaml
+          sed -i "s|<leantime-url>|$LEANTIME_URL|g" gatus/config/config.yaml
+          sed -i "s|<gatus-url>|$GATUS_URL|g" gatus/config/config.yaml
+          echo "Cofiguration updated."
+          cat gatus/config/config.yaml
+
+      - name: Get Short Commit Hash | ambil hash
+        run: echo "IMAGE_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
+          # gunakan tas berdasarkan commit SHA sebagai tag
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f gatus/Dockerfile gatus
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push --all-tags $ECR_REGISTRY/$ECR_REPOSITORY
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "IMAGE_FULL_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
+
+      - name: Update ECS task definition
+        env:
+          GATUS_TASK_DEFINITION: ${{ env.GATUS_TASK_DEFINITION }}
+        run: |
+          sed -i "s|<task-def-image>|$IMAGE_FULL_URI|g" $GATUS_TASK_DEFINITION
+          echo "Task definition updated."
+          cat $GATUS_TASK_DEFINITION
+
+      - name: deploy ecs task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ env.GATUS_TASK_DEFINITION }}
+          service: ${{ env.ECS_GATUS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          force-new-deployment: true
+          run-task-tags: '[{"key": "name", "value": "lks-container-gatus"} ]'
