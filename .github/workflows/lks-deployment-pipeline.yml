@@ -20,7 +20,7 @@ env:
   # Leantime configuration
   ECS_LEANTIME_SERVICE: ${{ secrets.ECS_LEANTIME_SERVICE }}
   LEANTIME_TASK_DEFINITION: "leantime/task-definition.json"
-  LEANTIME_URL: "http://${{ secrets.ALB_ENDPOINT }}"
+  LEANTIME_URL: "http://${{ secrets.ALB_ENDPOINT }}:8000"
 
   # Gatus configuration
   GATUS_CONFIG_FILE: "gatus/config/config.yaml"
