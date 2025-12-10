@@ -14,7 +14,7 @@ env:
   ECS_CLUSTER: "lks-oss-cluster"
   TOKEN: ${{ secrets.TOKEN }}
 
-  ECS_LEANTIME_SERVICE: "leantime-service-aogtlx36"
+  ECS_LEANTIME_SERVICE: "leantime-service"
   LEANTIME_TASK_DEFINITION: "leantime/task-definition.json"
   LEANTIME_URL: "${{ secrets.ALB_ENDPOINT }}/auth/login"
   GATUS_URL: "${{ secrets.ALB_ENDPOINT }}:8080"
