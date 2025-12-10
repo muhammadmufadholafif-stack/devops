@@ -14,11 +14,11 @@ env:
   ECS_CLUSTER: "lks-oss-cluster"
   TOKEN: ${{ secrets.TOKEN }}
 
-  ECS_LEANTIME_SERVICE: "Iks-leantime-app-service-aogtlx36"
+  ECS_LEANTIME_SERVICE: "leantime-service-aogtlx36"
   LEANTIME_TASK_DEFINITION: "leantime/task-definition.json"
   LEANTIME_URL: "${{ secrets.ALB_ENDPOINT }}/auth/login"
   GATUS_URL: "${{ secrets.ALB_ENDPOINT }}:8080"
-  ecs_gatus_service: "Iks-gatus-app-service-7qbirl4b"
+  ecs_gatus_service: "gatus-service-7qbirl4b"
   gatus_task_definition: "gatus/task-definition.json"
 
 

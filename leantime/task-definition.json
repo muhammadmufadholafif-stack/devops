@@ -39,7 +39,7 @@
           "accessPointId": "fsap-0148e3f66c4fbccfd",
           "iam": "DISABLED"
         },
-        "fileSystemId": "fsap-0148e3f66c4fbccfd",
+        "fileSystemId": "fs-0b1fe5c1f48711f88",
         "rootDirectory": "/",
         "transitEncryption": "ENABLED"
       },
