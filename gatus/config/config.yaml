@@ -1,12 +1,8 @@
 
 alerting:
   github:
+    repository-url: "https://github.com/muhammadmufadholafif-stack/devops.git"
     token: "<github-token>"   
-    owner: "<your-github-username>"
-    repository: "<your-repo-name>"
-    failure-threshold: 3
-    success-threshold: 5
-    send-on-resolved: true
 
 endpoints:
   - name: Leantime
@@ -17,7 +13,10 @@ endpoints:
       - "[RESPONSE_TIME] < 300"
     alerts:
       - type: github
-        description: "Sensei, Leantime is down! Please check and fix it."
+        failure-threshold: 3
+        success-threshold: 5
+        send-on-resolved: true
+        description: "Sensei, Gatus is down! Please check and fix it."
 
   - name: Gatus
     url: <gatus-url>     
@@ -27,4 +26,7 @@ endpoints:
       - "[RESPONSE_TIME] < 500"
     alerts:
       - type: github
+        failure-threshold: 3
+        success-threshold: 5
+        send-on-resolved: true
         description: "Sensei, Gatus is down! Please check and fix it."
