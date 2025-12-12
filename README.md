@@ -11,4 +11,4 @@ This project aims to automate deployment for the [Leantime](https://docs.leantim
 1. **Fork this repository**.
 2. **Clone the forked repository**.
 3. **Configure the applications**.
-4. **Create Workflow Fil
+4. **Create Workflow Filttt
