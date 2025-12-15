@@ -12,10 +12,10 @@
     {
       "efsVolumeConfiguration": {
         "authorizationConfig": {
-          "accessPointId": "fsap-0437f19ea978a3e75",
+          "accessPointId": "fsap-0c56e575cdf2d8931",
           "iam": "DISABLED"
         },
-        "fileSystemId": "fs-0b1fe5c1f48711f88",
+        "fileSystemId": "fs-04a4b8ea4ceeccd01",
         "rootDirectory": "/",
         "transitEncryption": "ENABLED"
       },
@@ -24,10 +24,10 @@
     {
       "efsVolumeConfiguration": {
         "authorizationConfig": {
-          "accessPointId": "fsap-0e0476a7a630c35ed",
+          "accessPointId": "fsap-073a27d140d9f5a43",
           "iam": "DISABLED"
         },
-        "fileSystemId": "fs-0b1fe5c1f48711f88",
+        "fileSystemId": "fs-04a4b8ea4ceeccd01",
         "rootDirectory": "/",
         "transitEncryption": "ENABLED"
       },
@@ -36,10 +36,10 @@
     {
       "efsVolumeConfiguration": {
         "authorizationConfig": {
-          "accessPointId": "fsap-0148e3f66c4fbccfd",
+          "accessPointId": "fsap-0a06cc3ee76327462",
           "iam": "DISABLED"
         },
-        "fileSystemId": "fs-0b1fe5c1f48711f88",
+        "fileSystemId": "fs-04a4b8ea4ceeccd01",
         "rootDirectory": "/",
         "transitEncryption": "ENABLED"
       },
@@ -80,7 +80,7 @@
       ],
 
       "environment": [
-        { "name": "APP_URL", "value": "lks-oss-lb-1451790669.us-east-1.elb.amazonaws.com" },
+        { "name": "APP_URL", "value": "http://lks-oss-lb-942526027.us-east-1.elb.amazonaws.com"},
         { "name": "APP_PORT", "value": "8080" },
         { "name": "SITENAME", "value": "LKS Leantime" },
         { "name": "DEFAULT_TIMEZONE", "value": "Asia/Jakarta" }
@@ -93,12 +93,12 @@
           "sourceVolume": "public"
         },
         {
-          "containerPath": "/var/www/html/userfiles ",
+          "containerPath": "/var/www/html/userfiles",
           "readOnly": false,
           "sourceVolume": "user"
         },
         {
-          "containerPath": "/var/www/html/app/Plugins ",
+          "containerPath": "/var/www/html/app/Plugins",
           "readOnly": false,
           "sourceVolume": "plug"
         }
