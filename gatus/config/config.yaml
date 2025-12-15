@@ -1,28 +1,25 @@
 alerting:
   github:
-    repository-url: "https://github.com/muhammadmufadholafif-stack/devops.git"
-    token: "<github-token>"   
+    token: "<github-token>"
 
 endpoints:
   - name: Leantime
-    url: "http://leantime-app"     
+    url: <leantime-url>
     interval: 30s
     conditions:
       - "[STATUS] == 200"
-      - "[RESPONSE_TIME] < 300"
     alerts:
       - type: github
         failure-threshold: 3
         success-threshold: 5
         send-on-resolved: true
-        description: "Sensei, Gatus is down! Please check and fix it."
+        description: "Sensei, Leantime is down! Please check and fix it."
 
   - name: Gatus
-    url: "http://localhost:8080"   
+    url: <gatus-url>
     interval: 60s
     conditions:
       - "[STATUS] == 200"
-      - "[RESPONSE_TIME] < 500"
     alerts:
       - type: github
         failure-threshold: 3
