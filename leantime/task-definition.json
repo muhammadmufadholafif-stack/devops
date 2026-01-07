@@ -75,7 +75,7 @@
         { "name": "LEAN_DB_HOST", "valueFrom": "/lks/db/host" },
         { "name": "LEAN_DB_PORT", "valueFrom": "/lks/db/port" },
         { "name": "LEAN_DB_NAME", "valueFrom": "/lks/db/name" },
-        { "name": "LEAN_DB_USER", "valueFrom": "/lks/db/username" },
+        { "name": "LEAN_DB_USERNAME", "valueFrom": "/lks/db/username" },
         { "name": "LEAN_DB_PASSWORD", "valueFrom": "/lks/db/password" }
       ],
 
