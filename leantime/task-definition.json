@@ -12,10 +12,10 @@
     {
       "efsVolumeConfiguration": {
         "authorizationConfig": {
-          "accessPointId": "fsap-0c56e575cdf2d8931",
+          "accessPointId": "fsap-04688ee0cfea30489",
           "iam": "DISABLED"
         },
-        "fileSystemId": "fs-04a4b8ea4ceeccd01",
+        "fileSystemId": "fs-0dbdd3ee5ff3d3612",
         "rootDirectory": "/",
         "transitEncryption": "ENABLED"
       },
@@ -24,10 +24,10 @@
     {
       "efsVolumeConfiguration": {
         "authorizationConfig": {
-          "accessPointId": "fsap-073a27d140d9f5a43",
+          "accessPointId": "fsap-002e2c4cb1399a2f8",
           "iam": "DISABLED"
         },
-        "fileSystemId": "fs-04a4b8ea4ceeccd01",
+        "fileSystemId": "fs-0dbdd3ee5ff3d3612",
         "rootDirectory": "/",
         "transitEncryption": "ENABLED"
       },
@@ -36,10 +36,10 @@
     {
       "efsVolumeConfiguration": {
         "authorizationConfig": {
-          "accessPointId": "fsap-0a06cc3ee76327462",
+          "accessPointId": "fsap-0c167b436ef3385f8",
           "iam": "DISABLED"
         },
-        "fileSystemId": "fs-04a4b8ea4ceeccd01",
+        "fileSystemId": "fs-0dbdd3ee5ff3d3612",
         "rootDirectory": "/",
         "transitEncryption": "ENABLED"
       },
@@ -80,7 +80,7 @@
       ],
 
       "environment": [
-        { "name": "APP_URL", "value": "http://lks-oss-lb-942526027.us-east-1.elb.amazonaws.com"},
+        { "name": "APP_URL", "value": "http://lks-oss-lb-1021339520.us-east-1.elb.amazonaws.com"},
         { "name": "APP_PORT", "value": "8080" },
         { "name": "SITENAME", "value": "LKS Leantime" },
         { "name": "DEFAULT_TIMEZONE", "value": "Asia/Jakarta" }
